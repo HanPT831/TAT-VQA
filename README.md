@@ -1,6 +1,7 @@
 <div align="center">
 
-<h2>Tracing the Arrow of Time: Diagnosing Temporal
+<h2>Tracing the Arrow of Time: <br>
+ Diagnosing Temporal
 Information Flow in Video-LLMs</h2>
 
 </div>
