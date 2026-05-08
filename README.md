@@ -49,7 +49,7 @@ TAT
     python demo/demo_tvbench_qwen.py
     ```
 
-# :dizzy: Acknowledgement
+# Acknowledgement
 
 Our code is based on following projects: [VideoChat2](https://github.com/OpenGVLab/Ask-Anything/tree/main/video_chat2), [InternVideo2](https://github.com/OpenGVLab/InternVideo/tree/main/InternVideo2),
 [VideoGPT+](https://github.com/mbzuai-oryx/videogpt-plus)
