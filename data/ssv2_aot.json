@@ -1,0 +1,24 @@
+[
+  {
+    "video": "1.webm",
+    "aot": "backward",
+    "QA": [
+      {
+        "i": "Determine whether the video is played normally or backward based on physical and temporal consistency.",
+        "q": "Question: Is this clip more consistent with real-world forward dynamics or backward playback?",
+        "a": "Answer: backward"
+      }
+    ]
+  },
+  {
+    "video": "10.webm",
+    "aot": "forward",
+    "QA": [
+      {
+        "i": "Analyze the temporal progression of the video and classify it as forward-time or reversed-time.",
+        "q": "Question: Which of the following best describes the temporal direction of this clip?",
+        "a": "Answer: forward"
+      }
+    ]
+  }
+]

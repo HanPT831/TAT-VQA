@@ -1,0 +1,271 @@
+import os as __os  # add "__" if not want to be exported
+from copy import deepcopy as __deepcopy
+
+anno_root_it = "your_data_path/annotations/videochat2"
+
+# ============== pretraining datasets=================
+available_corpus = dict(
+    # image
+    caption_coco=[
+        f"your_data_path/annotations/videochat2/image/caption/coco/train_cc_caption.json", 
+        "your_data_path/pretraining/COCO",
+    ],
+    caption_coco_100k=[
+        f"{anno_root_it}/image/caption/coco/train_100k.json", 
+        "your_data_path/coco_caption",
+    ],
+    caption_llava=[
+        f"{anno_root_it}/image/caption/llava/train.json", 
+        "your_data_path/coco_caption",
+    ],
+    caption_minigpt4=[
+        f"{anno_root_it}/image/caption/minigpt4/train.json", 
+        "your_data_path/minigpt4/image",
+    ],
+    caption_paragraph_captioning=[
+        f"{anno_root_it}/image/caption/paragraph_captioning/train.json", 
+        "your_data_path/m3it/image-paragraph-captioning",
+    ],
+    caption_textcaps=[
+        f"{anno_root_it}/image/caption/textcaps/train.json", 
+        "your_data_path/m3it/textcap",
+    ],
+    classification_imagenet=[
+        f"{anno_root_it}/image/classification/imagenet/train.json", 
+        "your_data_path/m3it/imagenet",
+    ],
+    classification_coco_itm=[
+        f"your_data_path/annotations/videochat2/image/classification/coco_itm/train_cc_class.json", 
+        "your_data_path/pretraining/COCO",
+    ],
+    conversation_llava=[
+        f"{anno_root_it}/image/conversation/llava/train.json", 
+        "your_data_path/coco_caption",
+    ],
+    reasoning_clevr=[
+        f"{anno_root_it}/image/reasoning/clevr/train.json", 
+        "your_data_path/m3it/clevr",
+    ],
+    reasoning_visual_mrc=[
+        f"{anno_root_it}/image/reasoning/visual_mrc/train.json", 
+        "your_data_path/m3it/visual-mrc",
+    ],
+    reasoning_llava=[
+        f"{anno_root_it}/image/reasoning/llava/train.json", 
+        "your_data_path/coco_caption",
+    ],
+    vqa_vqav2=[
+        f"{anno_root_it}/image/vqa/vqav2/train.json", 
+        "your_data_path/m3it/vqa-v2",
+    ],
+    vqa_gqa=[
+        f"{anno_root_it}/image/vqa/gqa/train.json", 
+        "your_data_path/m3it/gqa",
+    ],
+    vqa_okvqa=[
+        f"{anno_root_it}/image/vqa/okvqa/train.json", 
+        "your_data_path/m3it/okvqa",
+    ],
+    vqa_a_okvqa=[
+        f"{anno_root_it}/image/vqa/a_okvqa/train.json", 
+        "your_data_path/m3it/a-okvqa",
+    ],
+    vqa_viquae=[
+        f"{anno_root_it}/image/vqa/viquae/train.json", 
+        "your_data_path/m3it/viquae",
+    ],
+    vqa_ocr_vqa=[
+        f"{anno_root_it}/image/vqa/ocr_vqa/train.json", 
+        "your_data_path/m3it/ocr-vqa",
+    ],
+    vqa_text_vqa=[
+        f"{anno_root_it}/image/vqa/text_vqa/train.json", 
+        "your_data_path/m3it/text-vqa",
+    ],
+    vqa_st_vqa=[
+        f"{anno_root_it}/image/vqa/st_vqa/train.json", 
+        "your_data_path/m3it/st-vqa",
+    ],
+    vqa_docvqa=[
+        f"{anno_root_it}/image/vqa/docvqa/train.json", 
+        "your_data_path/m3it/docvqa",
+    ],
+    # video
+    caption_videochat=[
+        f"your_data_path/annotations/videochat2/video/caption/videochat/train_videochat.json", 
+        "your_data_path/instruction_tuning/webvid",
+        "video"
+    ],
+    caption_webvid=[
+        f"your_data_path/annotations/videochat2/video/caption/webvid/train_webvid_caption.json", 
+        "your_data_path/instruction_tuning/webvid",
+        "video"
+    ],
+    caption_vcg_human=[
+        f"your_data_path/annotations/videochat2/video/caption/vcg_human/train_vcg_human.json", 
+        "your_data_path/instruction_tuning/Activity_Videos",
+        "video"
+    ],
+    caption_vcg_plus=[
+        f"your_data_path/annotations/videochat2/video/caption/vcg_plus/train_vcg_plus.json", 
+        "your_data_path/instruction_tuning/Activity_Videos",
+        "video"
+    ],
+    caption_webvid_80k=[
+        f"{anno_root_it}/video/caption/webvid/train_80k.json", 
+        "your_data_path/WebVid2M",
+        "video"
+    ],
+    classification_k710=[
+        f"{anno_root_it}/video/classification/k710/train.json", 
+        "your_data_path/instruction_tuning/k710",
+        "video"
+    ],
+    classification_ssv2=[
+        "your_data_path/annotations/videochat2/video/classification/ssv2/train.json", 
+        "your_data_path/ssv2/20bn-something-something-v2",
+        "video"
+    ],
+    aot_ssv2=[
+        "your_data_path/annotations/videochat2/video/aot/ssv2/train.json", 
+        "your_data_path/ssv2/20bn-something-something-v2",
+        "video"
+    ],
+    aot_clevrer=[
+        "your_data_path/annotations/videochat2/video/aot/clevrer/train.json", 
+        "your_data_path/instruction_tuning/clevrer",
+        "video"
+    ],
+    aot_mit_170k=[
+        "your_data_path/annotations/videochat2/video/aot/mit/train.json", 
+        "your_data_path/mit_dataset/Moments_in_Time_Raw/mit-170k",
+        "video"
+    ],
+    conversation_videochat1=[
+        f"{anno_root_it}/video/conversation/videochat1/train_videochat1.json", 
+        "your_data_path/instruction_tuning/videochat_it",
+        "video"
+    ],
+    conversation_videochat2=[
+        f"{anno_root_it}/video/conversation/videochat2/train.json", 
+        "your_data_path/internvid",
+        "video"
+    ],
+    conversation_videochatgpt=[
+        f"your_data_path/annotations/videochat2/video/conversation/videochatgpt/train_videochatgpt_new.json", 
+        "your_data_path/instruction_tuning/Activity_Videos",
+        "video"
+    ],
+    reasoning_next_qa=[
+        f"{anno_root_it}/video/reasoning/next_qa/train_nextqa.json", 
+        "your_data_path/instruction_tuning/NExTQA",
+        "video"
+    ],
+    reasoning_clevrer_qa=[
+        f"{anno_root_it}/video/reasoning/clevrer_qa/train.json", 
+        "your_data_path/instruction_tuning/clevrer",
+        "video"
+    ],
+    reasoning_clevrer_mc=[
+        f"{anno_root_it}/video/reasoning/clevrer_mc/train.json",  
+        "your_data_path/instruction_tuning/clevrer",
+        "video"
+    ],
+    vqa_webvid_qa=[
+        f"{anno_root_it}/video/vqa/webvid_qa/train_webvidqa.json", 
+        "your_data_path/instruction_tuning/webvid",
+        "video"
+    ],
+    vqa_webvid_qa_30k=[
+        f"{anno_root_it}/video/vqa/webvid_qa/train_30k.json", 
+        "your_data_path/WebVid2M",
+        "video",
+    ],
+)
+available_corpus["aot_stage1"] = [
+    available_corpus["caption_coco"],
+    available_corpus["classification_coco_itm"],
+]
+
+available_corpus["aot_stage2"] = [
+    available_corpus["aot_ssv2"],
+    available_corpus["classification_k710"],
+    available_corpus["aot_mit_170k"],
+    available_corpus["aot_clevrer"],
+    available_corpus["classification_ssv2"],
+    available_corpus["reasoning_clevrer_qa"],
+]
+
+available_corpus["aot_mix"] = [
+    available_corpus["caption_coco"],
+    available_corpus["classification_coco_itm"],
+    available_corpus["classification_ssv2"],
+    available_corpus["classification_k710"],
+    available_corpus["vqa_webvid_qa"],
+    available_corpus["reasoning_clevrer_mc"],
+    available_corpus["reasoning_clevrer_qa"],
+    available_corpus["reasoning_next_qa"],
+    available_corpus["conversation_videochatgpt"],
+    available_corpus["conversation_videochat1"],
+    available_corpus["caption_vcg_human"],
+    available_corpus["caption_vcg_plus"],
+    available_corpus["caption_videochat"],
+    available_corpus["aot_ssv2"],
+    available_corpus["aot_mit_170k"],
+    available_corpus["aot_clevrer"],
+]
+
+available_corpus["aot_mix_15"] = [
+    available_corpus["caption_coco"],
+    available_corpus["classification_coco_itm"],
+    available_corpus["classification_ssv2"],
+    available_corpus["classification_k710"],
+    available_corpus["vqa_webvid_qa"],
+    available_corpus["reasoning_clevrer_mc"],
+    available_corpus["reasoning_clevrer_qa"],
+    available_corpus["reasoning_next_qa"],
+    available_corpus["conversation_videochatgpt"],
+    available_corpus["conversation_videochat1"],
+    available_corpus["caption_vcg_human"],
+    available_corpus["caption_vcg_plus"],
+    available_corpus["caption_videochat"],
+    available_corpus["aot_ssv2"],
+]
+
+available_corpus["aot_mix_no_clevrer"] = [
+    available_corpus["caption_coco"],
+    available_corpus["classification_coco_itm"],
+    available_corpus["classification_ssv2"],
+    available_corpus["classification_k710"],
+    available_corpus["vqa_webvid_qa"],
+    available_corpus["reasoning_clevrer_mc"],
+    available_corpus["reasoning_clevrer_qa"],
+    available_corpus["reasoning_next_qa"],
+    available_corpus["conversation_videochatgpt"],
+    available_corpus["conversation_videochat1"],
+    available_corpus["caption_vcg_human"],
+    available_corpus["caption_vcg_plus"],
+    available_corpus["caption_videochat"],
+    available_corpus["aot_ssv2"],
+    available_corpus["aot_mit_170k"],
+]
+
+available_corpus["aot_no_aot"] = [
+    available_corpus["caption_coco"],
+    available_corpus["classification_coco_itm"],
+    available_corpus["classification_ssv2"],
+    available_corpus["classification_k710"],
+    available_corpus["vqa_webvid_qa"],
+    available_corpus["reasoning_clevrer_mc"],
+    available_corpus["reasoning_clevrer_qa"],
+    available_corpus["reasoning_next_qa"],
+    available_corpus["conversation_videochatgpt"],
+    available_corpus["conversation_videochat1"],
+    available_corpus["caption_vcg_human"],
+    available_corpus["caption_vcg_plus"],
+    available_corpus["caption_videochat"],
+]
+
+available_corpus["aot_only"] = [
+    available_corpus["aot_ssv2"],
+]

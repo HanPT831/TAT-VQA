@@ -1,0 +1,46 @@
+{
+  "model": {
+    "model_cls": "VideoChat2_it_Qwen",
+    "qwen_model_path": "",
+    "freeze_vit": true,
+    "max_txt_len": 512,
+    "low_resource": false,
+    "return_index": -1,
+    "vision_encoder": {
+      "name": "vit_l14",
+      "img_size": 224,
+      "patch_size": 14,
+      "d_model": 1024,
+      "encoder_embed_dim": 1408,
+      "encoder_depth": 40,
+      "encoder_num_heads": 16,
+      "drop_path_rate": 0.0,
+      "num_frames": 16,
+      "tubelet_size": 1,
+      "use_checkpoint": false,
+      "checkpoint_num": 16,
+      "stage1": "InternVideo2-Stage1",
+      "vit_add_ln": true,
+      "clip_embed_dim": 768,
+      "sep_image_video_pos_embed": true
+    },
+    "spatial_pool_shape": [
+      8,
+      8
+    ],
+    "system": "",
+    "start_token": "<Video>",
+    "end_token": "</Video>",
+    "add_second_msg": true,
+    "img_start_token": "<Image>",
+    "img_end_token": "</Image>",
+    "random_shuffle": true,
+    "return_question_instruction": false,
+    "use_flash_attention": true,
+    "use_lora": false,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.1
+  },
+  "device": "cuda"
+}
