@@ -21,7 +21,7 @@ TAT
     ```
 ### AoT VQA
 
-#### Projector and Layer-Wise Fine-Tuning 
+#### RQ2: Projector and Layer-Wise Fine-Tuning 
 - AoT-only instruction tuning:
     - Download Something-something v2 dataset
     - Construct AoT VQA dataset using aot.py
@@ -32,7 +32,7 @@ TAT
     ```shell
     bash scripts/videochat_qwen/run_7b_aot_only_ivs1.sh
     ```
-#### RQ3 AoT Supervision For Broader Temporal Reasoning
+#### RQ3: AoT Supervision For Broader Temporal Reasoning
 - AoT & instruction joint tuning:
     - Download instruction data from Videogpt+
     - set `data_dir` in TAT_vqa/configs/instruction_data.py
