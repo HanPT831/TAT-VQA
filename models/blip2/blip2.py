@@ -62,7 +62,9 @@ class Blip2Base(nn.Module):
         encoder_config.drop_path_list = [x.item() for x in torch.linspace(0, qformer_drop_path_rate, encoder_config.num_hidden_layers)]
         logger.info(f"Drop_path:{encoder_config.drop_path_list}")
         logger.info(encoder_config)
-        Qformer = BertLMHeadModel(config=encoder_config)
+        Qformer = BertLMHeadModel.from_pretrained(
+        "bert-base-uncased", config=encoder_config, local_files_only=True
+        )       
         query_tokens = nn.Parameter(
             torch.zeros(1, num_query_token, encoder_config.hidden_size)
         )
